@@ -1,6 +1,12 @@
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--task", default="return a list of numbers")
+parser.add_argument("--language", default="python")
+args = parser.parse_args()
 
 # SECURE THIS KEY
 api_key = "<OPENAI API KEY>"
@@ -20,7 +26,8 @@ code_chain= LLMChain(
 )
 
 result = code_chain({
-    "language": "python",
-    "task": "return a list of numbers"
+    "language": args.language,
+    "task": args.task
 })
 print(result)
+# python main.py --language javascript --task 'print hello'
